@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ferriskey
+  namespace: argocd
+spec:
+  description: Ferriskey Application Project
+
+  sourceRepos:
+    - "https://github.com/nathaelb/k-soul.git"
+    - "ghcr.io/ferriskey/charts"
+
+  destinations:
+    - namespace: ferriskey-demo
+      server: https://kubernetes.default.svc

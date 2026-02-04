@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: ferriskey-postgres
+  name: ferriskey-demo-postgres
   namespace: ferriskey-demo
   annotations:
     argocd.argoproj.io/sync-wave: "0"

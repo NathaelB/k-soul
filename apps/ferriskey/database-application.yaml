@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ferriskey-database
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: ferriskey
+  source:
+    repoURL: https://github.com/nathaelb/k-soul.git
+    targetRevision: HEAD
+    path: manifests/postgres
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ferriskey-demo
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

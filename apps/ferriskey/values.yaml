@@ -1,20 +1,35 @@
+nameOverride: ferriskey-demo
+
 postgresql:
   enabled: false
 
 # Database configuration for CNPG
 database:
-  host: ferriskey-postgres-rw.ferriskey-demo.svc.cluster.local
+  host: ferriskey-demo-postgres-rw.ferriskey-demo.svc.cluster.local
   port: 5432
   name: app
   user: app
   passwordSecret:
     create: false
-    name: ferriskey-postgres-app
+    name: ferriskey-demo-postgres-app
     key: password
 api:
+  replicas: 3
   admin:
     passwordSecret:
       create: false
+
+ingress:
+  host: demo.ferriskey.rs
+  enabled: true
+  class: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    - secretName: ferriskey-demo-tls
+      hosts:
+        - demo.ferriskey.rs
 
 # Database migrations
 databaseMigrations:
