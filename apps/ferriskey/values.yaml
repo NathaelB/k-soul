@@ -1,0 +1,29 @@
+postgresql:
+  enabled: false
+
+# Database configuration for CNPG
+database:
+  host: ferriskey-postgres-rw.ferriskey-demo.svc.cluster.local
+  port: 5432
+  name: app
+  user: app
+  passwordSecret:
+    create: false
+    name: ferriskey-postgres-app
+    key: password
+api:
+  admin:
+    passwordSecret:
+      create: false
+
+# Database migrations
+databaseMigrations:
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
+  serviceAccount:
+    create: true
+    name: ferriskey-database-migrations
+    annotations:
+      argocd.argoproj.io/hook: PreSync
+      argocd.argoproj.io/sync-wave: "1"
